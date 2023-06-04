@@ -1,0 +1,50 @@
+import tkinter as tk
+from PIL import ImageTk, Image
+import random
+
+# Create the main window
+window = tk.Tk()
+window.title("Dice Simulator")
+window.geometry("400x400")
+
+# Create a label to display the dice image
+dice_label = tk.Label(window)
+dice_label.pack(pady=20)
+
+# Create a button to roll the dice
+roll_button = tk.Button(window, text="Roll the Dice", font=("Helvetica", 12, "bold"), pady=10)
+
+# Create a label to display the result
+result_label = tk.Label(window, text="", font=("Helvetica", 16), pady=10)
+
+# Function to roll the dice and update the dice image and result
+def roll_dice():
+    # Generate a random number between 1 and 6 for each dice
+    dice1 = random.randint(1, 6)
+    dice2 = random.randint(1, 6)
+
+    # Load the dice images based on the dice numbers
+    image1_path = f"dice_images/dice{dice1}.png"
+    image2_path = f"dice_images/dice{dice2}.png"
+    dice_image1 = ImageTk.PhotoImage(Image.open(image1_path))
+    dice_image2 = ImageTk.PhotoImage(Image.open(image2_path))
+
+    # Update the dice label with the new images
+    dice_label.configure(image=dice_image1)
+    dice_label.image = dice_image1
+
+    # Calculate the total result
+    total = dice1 + dice2
+
+    # Update the result label with the total
+    result_label.configure(text=f"Total: {total}")
+
+# Configure the button to call the roll_dice function when clicked
+roll_button.configure(command=roll_dice)
+
+# Pack the button and result labels
+roll_button.pack()
+result_label.pack()
+
+# Start the main event loop
+window.mainloop()
